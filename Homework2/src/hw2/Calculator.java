@@ -1,5 +1,6 @@
 package hw2;
 
+
 import hw2.list.EquationList;
 
 public class Calculator {
@@ -15,7 +16,13 @@ public class Calculator {
      **/
     public int add(int x, int y) {
         // YOUR CODE HERE
-        return -1;
+    	int mask = x ^ y;
+    	int carry = (x & y) << 1;  
+    	
+    	if(carry != 0)
+    		mask = add(mask, carry);
+    	
+        return mask;
     }
 
     /**
@@ -28,7 +35,36 @@ public class Calculator {
      **/
     public int multiply(int x, int y) {
         // YOUR CODE HERE
-        return -1;
+    	int product = 0;
+    	
+    	// is x or y is zero, result is zero
+    	if(x == 0 || y == 0){
+    		return 0;
+    	}
+    	
+    	//if x is negative, make positve, multiple, and make result negative
+    	if(x < 0){
+    		int negx = add(~x,1);
+    		int negprod = multiply(negx, y);
+    		product = add(~negprod,1);
+    		return product;
+    	}
+    	
+    	//same thing for y
+    	if(y < 0){
+    		int negy = add(~y,1);
+    		int negprod = multiply(x, negy);
+    		product = add(~negprod,1);
+    		return product;
+    	}
+    	
+    	
+    	//if both are positive, loop add
+    	for(int i = 0; i < x; i = add(i, 1)){
+    		product = add(product, y);
+    	}
+    	
+        return product;
     }
 
     /**

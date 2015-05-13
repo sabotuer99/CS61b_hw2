@@ -1,9 +1,13 @@
 package hw2;
 
+
+
 import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
-import StaffCalculator;
+
+
 
 public class CalculatorTest {
     /* Do not change this to be private. For silly testing reasons it is public. */
@@ -18,12 +22,101 @@ public class CalculatorTest {
      **/
     @Before
     public void setUp() {
-        tester = new StaffCalculator(); // Comment me out to test your Calculator
+        tester = new Calculator(); // Comment me out to test your Calculator
         // tester = new Calculator();   // Un-comment me to test your Calculator
     }
 
     // TASK 1: WRITE JUNIT TESTS
-    // YOUR CODE HERE
+    @Test
+    public void Add_GivenTwoPositiveNumbers_ReturnsSum(){
+    	//Arrange
+    	Integer expected = 5;
+    	Integer result = 0;
+    	
+    	//Act
+    	result = tester.add(2, 3);
+    	
+    	//Assert
+    	assertEquals(expected, result);
+    }
+    
+    @Test
+    public void Add_GivenTwoNegativeNumbers_ReturnsSum(){
+    	//Arrange
+    	Integer expected = -5;
+    	Integer result = 0;
+    	
+    	//Act
+    	result = tester.add(-2, -3);
+    	
+    	//Assert
+    	assertEquals(expected, result);
+    }
+    
+    @Test
+    public void Add_GivenLargestIntAndOne_ReturnsLargestNegInt(){
+    	//Arrange
+    	Integer expected = -2147483648;
+    	Integer result = 0;
+    	
+    	//Act
+    	result = tester.add(2147483647, 1);
+    	
+    	//Assert
+    	assertEquals(expected, result);
+    }
+    
+    @Test
+    public void Multiply_GivenTwoNumbers_ReturnsProduct(){
+    	//Arrange
+    	Integer expected = 6;
+    	Integer result = 0;
+    	
+    	//Act
+    	result = tester.multiply(2, 3);
+    	
+    	//Assert
+    	assertEquals(expected, result);
+    }
+    
+    @Test
+    public void Multiply_GivenOppositeSigns_ReturnsNegativeProduct(){
+    	//Arrange
+    	Integer expected = -6;
+    	Integer result = 0;
+    	
+    	//Act
+    	result = tester.multiply(2, -3);
+    	
+    	//Assert
+    	assertEquals(expected, result);
+    }
+    
+    @Test
+    public void Multiply_GivenTwoNegative_ReturnsPositiveProduct(){
+    	//Arrange
+    	Integer expected = 6;
+    	Integer result = 0;
+    	
+    	//Act
+    	result = tester.multiply(-2, -3);
+    	
+    	//Assert
+    	assertEquals(expected, result);
+    }
+    
+    @Test
+    public void Multiply_GivenZero_ReturnsZero(){
+    	//Arrange
+    	Integer expected = 0;
+    	Integer result = 0;
+    	
+    	//Act
+    	result = tester.multiply(0, -3);
+    	
+    	//Assert
+    	assertEquals(expected, result);
+    }
 
     /* Run the unit tests in this file. */
     public static void main(String... args) {
