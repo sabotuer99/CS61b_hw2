@@ -5,7 +5,8 @@ import hw2.list.EquationList;
 
 public class Calculator {
     // YOU MAY WISH TO ADD SOME FIELDS
-
+	EquationList eqList;
+	
     /**
      * TASK 2: ADDING WITH BIT OPERATIONS
      * add() is a method which computes the sum of two integers x and y using 
@@ -64,6 +65,8 @@ public class Calculator {
     		product = add(product, y);
     	}
     	
+    	// much more elegant solution on SO
+    	// http://stackoverflow.com/questions/3722004/how-to-perform-multiplication-using-bitwise-operators
         return product;
     }
 
@@ -78,6 +81,11 @@ public class Calculator {
      **/
     public void saveEquation(String equation, int result) {
         // YOUR CODE HERE
+    	if (eqList == null) {
+    		eqList = new EquationList(equation, result, null);
+    	} else {
+    		eqList = new EquationList(equation, result, eqList);
+    	} 	 	
     }
 
     /**
@@ -89,6 +97,7 @@ public class Calculator {
      **/
     public void printAllHistory() {
         // YOUR CODE HERE
+    	printHistory(-1);
     }
 
     /**
@@ -100,6 +109,15 @@ public class Calculator {
      **/
     public void printHistory(int n) {
         // YOUR CODE HERE
+    	EquationList here = eqList;
+    	int i = 0;
+    	while (here != null && (n == -1 || i < n))
+    	{
+    		if(n == -1 || i == n - 1)
+    			System.out.println(here.equation + " = " + ((Integer)here.result).toString());
+    		i += 1;
+    		here = here.next;
+    	}
     }    
 
     /**
@@ -108,6 +126,7 @@ public class Calculator {
     **/
     public void undoEquation() {
         // YOUR CODE HERE
+    	eqList = eqList.next;
     }
 
     /**
@@ -116,6 +135,7 @@ public class Calculator {
      **/
     public void clearHistory() {
         // YOUR CODE HERE
+    	eqList = null;
     }
 
     /**
@@ -126,7 +146,14 @@ public class Calculator {
      **/
     public int cumulativeSum() {
         // YOUR CODE HERE
-        return -1;
+    	EquationList here = eqList;
+    	int sum = 0;
+    	while (here != null)
+    	{
+    		sum = add(here.result, sum);
+    		here = here.next;
+    	}
+        return sum;
     }
 
     /**
@@ -137,6 +164,20 @@ public class Calculator {
      **/
     public int cumulativeProduct() {
         // YOUR CODE HERE
-        return -1;
+    	EquationList here = eqList;
+    	int prod = 0;
+    	
+    	if(here != null) {
+    		prod = here.result;
+    		here = here.next;
+    	}
+    			
+    	while (here != null)
+    	{
+    		prod = multiply(here.result, prod);
+    		here = here.next;
+    	}
+    	
+        return prod;
     }
 }
